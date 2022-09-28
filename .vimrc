@@ -10,18 +10,18 @@
 " solucionar.
 " =============================================================================================
 "
-"
 " =>  Basic configuration
 syntax enable
 filetype plugin indent on
 syntax on
 let g:rehash256 = 1
+
 "----------------------------------------------
 " => detect if the system supports more colors."
 " True color if available
 let term_program=$TERM_PROGRAM
 
-" Check for conflicts with Apple Terminal app
+" => Check for conflicts with Apple Terminal app
 if term_program !=? 'Apple_Terminal'
 	set termguicolors
 
@@ -128,7 +128,6 @@ let g:airline#extensions#tabline#formatter = 'default'
 nnoremap <M-Right> :bn<CR>
 nnoremap <M-Left> :bp<CR>
 nnoremap <c-x> :bp \|bd #<CR>
-
 "---------------------------------------------------------------------------------
 
 " =>  Plugin configuration - CTRLP
