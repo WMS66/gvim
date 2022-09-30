@@ -1,27 +1,19 @@
 " Vim configuration
-" Date: 26/09/2022
+" Date: 30/09/2022
 " Name: Wanderley
-" Configuração alcançada a partir videos assistidos  e documentação do vim aqui
-" GitHub.
 "
-" Link do canal => https://www.youtube.com/watch?v=hdZMqMeruSQ 
-"
-" Aqui eu uso gvim. O vim te retornado erros e  ainda não descobri como
-" solucionar.
 " =============================================================================================
-"
 " =>  Basic configuration
 syntax enable
 filetype plugin indent on
 syntax on
 let g:rehash256 = 1
-
 "----------------------------------------------
 " => detect if the system supports more colors."
 " True color if available
 let term_program=$TERM_PROGRAM
 
-" => Check for conflicts with Apple Terminal app
+" Check for conflicts with Apple Terminal app
 if term_program !=? 'Apple_Terminal'
 	set termguicolors
 
@@ -39,7 +31,7 @@ set encoding=utf8
 set showmatch
 set autoindent
 set smartindent
-set history=500         " => stores the last 500 dictated commands."
+set history=500         " => stores the last 500 dictated commands
 
 " => Tabs size
 set expandtab           " => turns tabs into spaces."
@@ -55,8 +47,6 @@ let &t_ZR="\e[23m"
 
 " => Font  - Dev Icons
 set guifont=Droid\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono:h16 
-
-" => set guifont=Fira\ Code Mono:h16
 
 " =>  => shows the lines from the current one.
 set relativenumber  
@@ -74,7 +64,7 @@ set completeopt=noinsert,menuone,noselect " => modifies the behavior of the auto
 " = > Splits an Tabbed Files
 set splitbelow splitright   " => configure the behavior of screen splitting in the command :split(split horizontally) and :vsplit(vertically)"
 set path+=**
-set wildmenu                " => shows a more advanced menu for autocomplete suggestions.set incsearch"
+set wildmenu  " => shows a more advanced menu for autocomplete suggestions.set incsearch"
 set nobackup
 set noswapfile
 
@@ -83,9 +73,11 @@ nmap <tab> :bnext<CR>
 nmap q :quit<CR>
 nmap <C-s> :w<CR>
 
+" => open the terminal in vim"
+nnoremap <C-t> :below terminal<CR> 
+
 " => call the Plugins
 "  --------------------------------------------------------------------------------
-" => call plug#begin('~/.vim/pack/git-plugins/start')
 " call plug#begin('~/.vim/pack/git-plugins/start')
 " Plug 'chun-yang/auto-pairs'
 " Plug 'itchyny/lightline.vim'
@@ -93,6 +85,7 @@ nmap <C-s> :w<CR>
 " Plug 'yggdroot/indentline'
 " Plug 'ap/vim-css-color'
 " Plug 'tpope/vim-surround'
+
 " =>  Theme GRUVBOX
 " Plug 'sainnhe/gruvbox-material'
 " Plug 'dracula/vim', { 'as': 'dracula' }
@@ -113,7 +106,7 @@ colorscheme gruvbox-material
 let g:gruvbox_material_background='medium'
 
 let g:indentline_enabled = 1
-map <c-k>i :IndentiLinesToggle<cr>
+map <c-k>i :IndentiLinesToggle<CR>
 
 " => Configuration the airline
 " --------------------------------------------------------------------------------
@@ -128,7 +121,7 @@ let g:airline#extensions#tabline#formatter = 'default'
 nnoremap <M-Right> :bn<CR>
 nnoremap <M-Left> :bp<CR>
 nnoremap <c-x> :bp \|bd #<CR>
-"---------------------------------------------------------------------------------
+" ---------------------------------------------------------------------------------
 
 " =>  Plugin configuration - CTRLP
 let g:ctrlp_custom_ignore = 'v[ / ] .(swp|zip)$'
@@ -158,6 +151,17 @@ let g:ale_completion_enabled = 0
 
 " => Plugin coc
 source ~/.vim/coc.nvimrc
+
+" => HTML CSS sets
+let g:user_emmet_install = 0
+autocmd FileType html,css EmmetInstall
+
+" => Live Server Web
+nnoremap <leader>8 :Bracey <CR>
+nnoremap <leader><F9> :BraceyReload <CR>
+nnoremap <leader>0 :BraceyStop
+autocmd FileType html :Bracey <CR>
+let g:bracey_server_port='30800'
 
 " => Set indentation
 let g:indentLine_enabled = 1
