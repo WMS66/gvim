@@ -1,5 +1,5 @@
 " Vim configuration
-" Date: 30/09/2022
+" Date: 06/10/2022
 " Name: Wanderley
 "
 " =============================================================================================
@@ -22,6 +22,18 @@ else
 		set termguicolors
 	endif
 endif
+" => Config open files
+" HTML
+function HtmlConfig()
+    set tabstop=2 softtabstop=2 expandtab shiftwidth=2
+	autocmd FileType html call HtmlConfig()
+endfunction
+
+" ==> Python
+function PythonConfig()
+    set tabstop=4 softtabstop=4 expandtab shiftwidth=4
+	autocmd FileType python call PythonConfig()
+endfunction
 " ---------------------------------------------
 
 set number              " => shows the number of lines on the side."
@@ -79,18 +91,28 @@ nnoremap <C-t> :below terminal<CR>
 " => call the Plugins
 "  --------------------------------------------------------------------------------
 " call plug#begin('~/.vim/pack/git-plugins/start')
-" Plug 'chun-yang/auto-pairs'
-" Plug 'itchyny/lightline.vim'
-" Plug 'vim-airline/vim-airline'
-" Plug 'yggdroot/indentline'
-" Plug 'ap/vim-css-color'
-" Plug 'tpope/vim-surround'
-
-" =>  Theme GRUVBOX
+" Plug 'dense-analysis/ale'
 " Plug 'sainnhe/gruvbox-material'
+" Plug 'vim-startify'
+" Plug 'VundleVim/Vundle.vi'
+" Plug 'yggdroot/indentline'
+" Plug 'awesome-vim-colorschemes'
+" Plug 'tomasiser/vim-code-dark'
+" Plug 'itchyny/lightline.vim'
+" Plug 'turbio/bracey.vim'
+" Plug 'preservim/nerdtree'
+" Plug 'vim-airline-themes'
+" Plug 'tomasiser/vim-code-dark'
+" Plug 'sheerun/vim-polyglot'
+" Plug 'ryanoasis/vim-devicons'
+" Plug 'junegunn/vim-plug'
+" Plug 'mattn/emmet-vim'
+" Plug 'vim-airline/vim-airline'
 " Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'scrooloose/nerdtree'
+" Plug 'neoclide/coc.nvim'
 
+" Plug 'tpope/vim-surround'
+" Plug 'chun-yang/auto-pairs'
 " call plug#end()
 "----------------------------------------------------------------------------------
 
@@ -160,7 +182,7 @@ autocmd FileType html,css EmmetInstall
 nnoremap <leader>8 :Bracey <CR>
 nnoremap <leader><F9> :BraceyReload <CR>
 nnoremap <leader>0 :BraceyStop
-autocmd FileType html :Bracey <CR>
+autocmd FileType HTML :Bracey <CR>
 let g:bracey_server_port='30800'
 
 " => Set indentation
