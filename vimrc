@@ -1,9 +1,20 @@
-" Vim configuration
-" Date: 06/10/2022
-" Name: Wanderley
+"
+"Vim configuration
+"
+"Date: 11/10/2022
+"
+"Name: Wanderley
 "
 " =============================================================================================
 " =>  Basic configuration
+"
+" ==> set startify
+source $HOME/.config/vim/plug-config/start-screen.vim
+" 
+" => Plugin coc
+source ~/.vim/coc.nvimrc
+" =============================================================================================
+" 
 syntax enable
 filetype plugin indent on
 syntax on
@@ -22,13 +33,25 @@ else
 		set termguicolors
 	endif
 endif
+"
 " => Config open files
 " HTML
 function HtmlConfig()
     set tabstop=2 softtabstop=2 expandtab shiftwidth=2
 	autocmd FileType html call HtmlConfig()
 endfunction
+"
+" ==> highlight all words under the cursor
+function! HighlightWordUnderCursor()
+    if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
+        exec 'match' 'Search' '/\V\<'.expand('<cword>').'\>/'
+    else
+        match none
+    endif
+endfunction
 
+autocmd! CursorHold,CursorHoldI * call HighlightWordUnderCursor()
+" ==>
 " ==> Python
 function PythonConfig()
     set tabstop=4 softtabstop=4 expandtab shiftwidth=4
@@ -77,6 +100,7 @@ set completeopt=noinsert,menuone,noselect " => modifies the behavior of the auto
 set splitbelow splitright   " => configure the behavior of screen splitting in the command :split(split horizontally) and :vsplit(vertically)"
 set path+=**
 set wildmenu  " => shows a more advanced menu for autocomplete suggestions.set incsearch"
+set incsearch
 set nobackup
 set noswapfile
 
@@ -88,34 +112,12 @@ nmap <C-s> :w<CR>
 " => open the terminal in vim"
 nnoremap <C-t> :below terminal<CR> 
 
-" => call the Plugins
-"  --------------------------------------------------------------------------------
-" call plug#begin('~/.vim/pack/git-plugins/start')
-" Plug 'dense-analysis/ale'
-" Plug 'sainnhe/gruvbox-material'
-" Plug 'vim-startify'
-" Plug 'VundleVim/Vundle.vi'
-" Plug 'yggdroot/indentline'
-" Plug 'awesome-vim-colorschemes'
-" Plug 'tomasiser/vim-code-dark'
-" Plug 'itchyny/lightline.vim'
-" Plug 'turbio/bracey.vim'
-" Plug 'preservim/nerdtree'
-" Plug 'vim-airline-themes'
-" Plug 'tomasiser/vim-code-dark'
-" Plug 'sheerun/vim-polyglot'
-" Plug 'ryanoasis/vim-devicons'
-" Plug 'junegunn/vim-plug'
-" Plug 'mattn/emmet-vim'
-" Plug 'vim-airline/vim-airline'
-" Plug 'dracula/vim', { 'as': 'dracula' }
-" Plug 'neoclide/coc.nvim'
+" => call the Plugins .vimrc.plug file
+if filereadable(expand("~/.config/vim/plug-config/.vimrc.plug"))
+	source ~/.config/vim/plug-config/.vimrc.plug
+endif
 
-" Plug 'tpope/vim-surround'
-" Plug 'chun-yang/auto-pairs'
-" call plug#end()
-"----------------------------------------------------------------------------------
-
+" ==> --------------------------------
 " => Set true italics support
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
@@ -124,9 +126,8 @@ let &t_ZR="\e[23m"
 " => GRUVBOX configuration
 let g:gruvbox_material_better_performance = 1
 set background=dark
-colorscheme gruvbox-material
 let g:gruvbox_material_background='medium'
-
+colorscheme gruvbox-material
 let g:indentline_enabled = 1
 map <c-k>i :IndentiLinesToggle<CR>
 
@@ -136,9 +137,11 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_statusline_ontop=0 
-let g:airline_theme='base16_twilight'  " => Theme
+let g:airline_theme='sonokai'  " => Theme
+let g:airline_theme = 'gruvbox_material'
 
 let g:airline#extensions#tabline#formatter = 'default'
+
 " => Browsing between buffers"
 nnoremap <M-Right> :bn<CR>
 nnoremap <M-Left> :bp<CR>
@@ -165,25 +168,31 @@ let g:NERDTreeWinSize=38
 filetype plugin on
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
-map cc <Plug>NERDCommenterInvert
+nmap cc <Plug>NERDCommenterInvert
 
 " => Plugin ale
 let g:ale_linters = {'python' : ['flake8', 'pylint'], 'javascript' : ['eslint']}
 let g:ale_completion_enabled = 0
 
-" => Plugin coc
-source ~/.vim/coc.nvimrc
-
 " => HTML CSS sets
 let g:user_emmet_install = 0
 autocmd FileType html,css EmmetInstall
 
-" => Live Server Web
-nnoremap <leader>8 :Bracey <CR>
+" => Bracey Live Server Web
+nnoremap <leader>8:Bracey <CR>
 nnoremap <leader><F9> :BraceyReload <CR>
 nnoremap <leader>0 :BraceyStop
 autocmd FileType HTML :Bracey <CR>
-let g:bracey_server_port='30800'
+let g:bracey_browser_command=0
+let g:bracey_auto_start_browser=1
+let g:bracey_refresh_on_save=0
+let g:bracey_eval_on_save=1
+let g:bracey_auto_start_server=1
+let g:bracey_server_path='http://127.0.0.1'
+let g:bracey_server_port='5500'
+let g:bracey_server_log='/tmp/bracey_server_logfile'
 
 " => Set indentation
 let g:indentLine_enabled = 1
+
+" ====================>  <====================
