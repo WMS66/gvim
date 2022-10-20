@@ -1,16 +1,23 @@
+"" =============================================================================================
 "
-"Vim configuration
-"
-"Date: 11/10/2022
-"
-"Name: Wanderley
-"
+"==> Vim configuration
+" ==> Date: 20/10/2022
+" ==> Name: Wanderley
 " =============================================================================================
 " =>  Basic configuration
 "
 " ==> set startify
 source $HOME/.config/vim/plug-config/start-screen.vim
 " 
+"
+" ==> Header template
+autocmd bufnewfile *.sh so ~/.vim/header_template
+autocmd bufnewfile *.sh exe “1,” . 10 . “g/File Name:/s//File Name: “ .expand(“%”)
+autocmd bufnewfile *.sh exe "1," . 11 . "g/Creation Date:/s//Creation Date: " .strftime("%c")
+autocmd Bufwritepre,filewritepre *.sh execute "normal ma"
+" =====================================================================================
+
+"
 " => Plugin coc
 source ~/.vim/coc.nvimrc
 " =============================================================================================
@@ -51,7 +58,7 @@ function! HighlightWordUnderCursor()
 endfunction
 
 autocmd! CursorHold,CursorHoldI * call HighlightWordUnderCursor()
-" ==>
+" 
 " ==> Python
 function PythonConfig()
     set tabstop=4 softtabstop=4 expandtab shiftwidth=4
@@ -174,25 +181,51 @@ nmap cc <Plug>NERDCommenterInvert
 let g:ale_linters = {'python' : ['flake8', 'pylint'], 'javascript' : ['eslint']}
 let g:ale_completion_enabled = 0
 
+" -----------------------------------------------------------------------------
 " => HTML CSS sets
 let g:user_emmet_install = 0
 autocmd FileType html,css EmmetInstall
+
+let g:user_emmet_settings = {
+\  'variables': {'lang': 'ja'},
+\  'html': {
+\    'default_attributes': {
+\      'option': {'value': v:null},
+\      'textarea': {'id': v:null, 'name': v:null, 'cols': 10, 'rows': 10},
+\    },
+\    'snippets': {
+\      'html:5': "<!DOCTYPE html>\n"
+\              ."<html lang=\"pt-BR\">\n"
+\              ."<head>\n"
+\              ."\t<meta charset=\"${charset}\">\n"
+\              ."\t<title></title>\n"
+\              ."\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+\              ."\t<link rel=\"stylesheet\" href=\"\">\n"
+\              ."</head>\n"
+\              ."<body>\n\t${child}|\n</body>\n"
+\              ."</html>",
+\    },
+\  },
+\}
+" -----------------------------------------------------------------------------
 
 " => Bracey Live Server Web
 nnoremap <leader>8:Bracey <CR>
 nnoremap <leader><F9> :BraceyReload <CR>
 nnoremap <leader>0 :BraceyStop
 autocmd FileType HTML :Bracey <CR>
+
 let g:bracey_browser_command=0
 let g:bracey_auto_start_browser=1
 let g:bracey_refresh_on_save=0
 let g:bracey_eval_on_save=1
 let g:bracey_auto_start_server=1
-let g:bracey_server_path='http://127.0.0.1'
-let g:bracey_server_port='5500'
+let g:bracey_server_path='localhost'
+let g:bracey_server_port=''
 let g:bracey_server_log='/tmp/bracey_server_logfile'
 
 " => Set indentation
 let g:indentLine_enabled = 1
 
 " ====================>  <====================
+
