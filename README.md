@@ -4,7 +4,7 @@ Estou aprendendo a usar o vim e estou compartilhando aqui a minha primeira vers�
 e ler sobre o tema na internet.
 
 
-#### Em desenvolvimento, sempre!
+#### Em Desenvolvimento, sempre!
 
 
 #### Toda sugestão é bem vinda!
